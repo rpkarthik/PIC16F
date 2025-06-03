@@ -1,0 +1,67 @@
+[PROJECT]
+Target=pic_7seg.hex
+Processor_Text=PIC16F877A
+CCSVerions=5.049
+Compiler=PCM
+CCSVersion=5.049
+[Target Data]
+FileList=pic_7seg.c
+[Directories]
+Include=
+[F:\Programs\Proteus\pic 7seg\pic_7seg]
+Type=4
+[mru-list]
+1=pic_7seg.c
+
+[ProjectLog]
+Days=4
+D1=29-10-2024
+D1_L=12
+D1_L1=[32677]Project Opened.
+D1_L2=[32752]Started Editing.
+D1_L3=[33898]Stopped Editing.
+D1_L4=[34029]Started Editing.
+D1_L5=[35402]Stopped Editing.
+D1_L6=[39695]Started Editing.
+D1_L7=[40489]Stopped Editing.
+D1_L8=[41225]Started Editing.
+D1_L9=[41643]Stopped Editing.
+D1_L10=[42483]Started Editing.
+D1_L11=[42654]Stopped Editing.
+TotalEdit=49
+TotalDebug=0
+D1_E=46
+D1_D=0
+D1_L12=[42654]Project Closed.
+D2=07-11-2024
+D2_L=4
+D2_L1=[46841]Project Opened.
+D2_L2=[46895]Started Editing.
+D2_L3=[47364]Stopped Editing.
+D2_E=3
+D2_D=0
+D2_L4=[52330]Project Closed.
+D3=03-05-2025
+D3_L=2
+D3_L1=[67753]Project Opened.
+D3_L2=[68718]Project Closed.
+D4=03-06-2025
+D4_L=1
+D4_L1=[62134]Project Opened.
+
+[Opened Files]
+1=pic_7seg.c
+t1=1
+2=pic_7seg.h
+t2=1
+Count=3
+3=D:\Program Files (x86)\PICC\Devices\16F877A.h
+t3=597
+[pic_7seg.c]
+Type=4
+
+[defines]
+buildcount=45
+[Units]
+Count=1
+1=pic_7seg (main)

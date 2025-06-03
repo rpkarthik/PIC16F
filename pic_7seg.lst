@@ -1,0 +1,245 @@
+CCS PCM C Compiler, Version 5.049, 5967               07-Nov-24 13:04
+
+               Filename:   F:\Programs\Proteus\pic 7seg\pic_7seg.lst
+
+               ROM used:   180 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   20 (5%) at main() level
+                           22 (6%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   02E
+0003:  NOP
+.................... #include <16F877A.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2014 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+0004:  MOVF   2F,W
+0005:  CLRF   78
+0006:  SUBWF  2E,W
+0007:  BTFSC  03.0
+0008:  GOTO   00C
+0009:  MOVF   2E,W
+000A:  MOVWF  77
+000B:  GOTO   018
+000C:  CLRF   77
+000D:  MOVLW  08
+000E:  MOVWF  30
+000F:  RLF    2E,F
+0010:  RLF    77,F
+0011:  MOVF   2F,W
+0012:  SUBWF  77,W
+0013:  BTFSC  03.0
+0014:  MOVWF  77
+0015:  RLF    78,F
+0016:  DECFSZ 30,F
+0017:  GOTO   00F
+0018:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #device ADC=10 
+.................... #use delay(crystal=4MHz) 
+0019:  MOVLW  2E
+001A:  MOVWF  04
+001B:  BCF    03.7
+001C:  MOVF   00,W
+001D:  BTFSC  03.2
+001E:  GOTO   02D
+001F:  MOVLW  01
+0020:  MOVWF  78
+0021:  CLRF   77
+0022:  DECFSZ 77,F
+0023:  GOTO   022
+0024:  DECFSZ 78,F
+0025:  GOTO   021
+0026:  MOVLW  4A
+0027:  MOVWF  77
+0028:  DECFSZ 77,F
+0029:  GOTO   028
+002A:  GOTO   02B
+002B:  DECFSZ 00,F
+002C:  GOTO   01F
+002D:  RETURN
+....................  
+.................... //#define  PORT_B ccc7seg 
+....................  
+.................... INT8 ccdat[]={0x03,0x9f,0x25,0x0d,0x99,0x49,0x41,0x1f,0x01,0x09}; 
+*
+003B:  MOVLW  03
+003C:  BCF    03.5
+003D:  MOVWF  20
+003E:  MOVLW  9F
+003F:  MOVWF  21
+0040:  MOVLW  25
+0041:  MOVWF  22
+0042:  MOVLW  0D
+0043:  MOVWF  23
+0044:  MOVLW  99
+0045:  MOVWF  24
+0046:  MOVLW  49
+0047:  MOVWF  25
+0048:  MOVLW  41
+0049:  MOVWF  26
+004A:  MOVLW  1F
+004B:  MOVWF  27
+004C:  MOVLW  01
+004D:  MOVWF  28
+004E:  MOVLW  09
+004F:  MOVWF  29
+.................... void main() 
+*
+002E:  MOVF   03,W
+002F:  ANDLW  1F
+0030:  MOVWF  03
+0031:  MOVLW  FF
+0032:  MOVWF  2A
+0033:  BSF    03.5
+0034:  BSF    1F.0
+0035:  BSF    1F.1
+0036:  BSF    1F.2
+0037:  BCF    1F.3
+0038:  MOVLW  07
+0039:  MOVWF  1C
+003A:  BCF    03.7
+*
+0050:  CLRF   2B
+0051:  CLRF   2C
+0052:  CLRF   2D
+.................... { 
+.................... int count=0; 
+.................... int mod1=0,mod2=0; 
+.................... output_b(~(ccdat[1])); 
+0053:  MOVF   21,W
+0054:  MOVWF  2E
+0055:  COMF   2E,F
+0056:  BSF    03.5
+0057:  CLRF   06
+0058:  BCF    03.5
+0059:  MOVF   2E,W
+005A:  MOVWF  06
+.................... output_bit(PIN_C0,1);// enable 1  
+005B:  BSF    07.0
+005C:  BCF    2A.0
+005D:  MOVF   2A,W
+005E:  BSF    03.5
+005F:  MOVWF  07
+.................... output_bit(PIN_C1,1);// enable 2  
+0060:  BCF    03.5
+0061:  BSF    07.1
+0062:  BCF    2A.1
+0063:  MOVF   2A,W
+0064:  BSF    03.5
+0065:  MOVWF  07
+....................    while(TRUE) 
+....................    { 
+....................     for(count=0;count<=99;count++) 
+0066:  BCF    03.5
+0067:  CLRF   2B
+0068:  MOVF   2B,W
+0069:  SUBLW  63
+006A:  BTFSS  03.0
+006B:  GOTO   0B2
+....................     { 
+....................       mod1=count/10; 
+006C:  MOVF   2B,W
+006D:  MOVWF  2E
+006E:  MOVLW  0A
+006F:  MOVWF  2F
+0070:  CALL   004
+0071:  MOVF   78,W
+0072:  MOVWF  2C
+....................       mod2=count%10; 
+0073:  MOVF   2B,W
+0074:  MOVWF  2E
+0075:  MOVLW  0A
+0076:  MOVWF  2F
+0077:  CALL   004
+0078:  MOVF   77,W
+0079:  MOVWF  2D
+....................       output_bit(PIN_C0,0); 
+007A:  BCF    07.0
+007B:  BCF    2A.0
+007C:  MOVF   2A,W
+007D:  BSF    03.5
+007E:  MOVWF  07
+....................       output_bit(PIN_C1,1); 
+007F:  BCF    03.5
+0080:  BSF    07.1
+0081:  BCF    2A.1
+0082:  MOVF   2A,W
+0083:  BSF    03.5
+0084:  MOVWF  07
+....................       output_b(~(ccdat[mod1])); 
+0085:  MOVLW  20
+0086:  BCF    03.5
+0087:  ADDWF  2C,W
+0088:  MOVWF  04
+0089:  BCF    03.7
+008A:  MOVF   00,W
+008B:  XORLW  FF
+008C:  MOVWF  2E
+008D:  BSF    03.5
+008E:  CLRF   06
+008F:  BCF    03.5
+0090:  MOVF   2E,W
+0091:  MOVWF  06
+....................       delay_ms(1); 
+0092:  MOVLW  01
+0093:  MOVWF  2E
+0094:  CALL   019
+....................       output_bit(PIN_C0,1); 
+0095:  BSF    07.0
+0096:  BCF    2A.0
+0097:  MOVF   2A,W
+0098:  BSF    03.5
+0099:  MOVWF  07
+....................       output_bit(PIN_C1,0); 
+009A:  BCF    03.5
+009B:  BCF    07.1
+009C:  BCF    2A.1
+009D:  MOVF   2A,W
+009E:  BSF    03.5
+009F:  MOVWF  07
+....................       output_b(~(ccdat[mod2])); 
+00A0:  MOVLW  20
+00A1:  BCF    03.5
+00A2:  ADDWF  2D,W
+00A3:  MOVWF  04
+00A4:  BCF    03.7
+00A5:  MOVF   00,W
+00A6:  XORLW  FF
+00A7:  MOVWF  2E
+00A8:  BSF    03.5
+00A9:  CLRF   06
+00AA:  BCF    03.5
+00AB:  MOVF   2E,W
+00AC:  MOVWF  06
+....................       delay_ms(80); 
+00AD:  MOVLW  50
+00AE:  MOVWF  2E
+00AF:  CALL   019
+00B0:  INCF   2B,F
+00B1:  GOTO   068
+....................     } 
+00B2:  GOTO   067
+....................     //TODO: User Code 
+....................    } 
+....................  
+.................... } 
+00B3:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2F41   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
